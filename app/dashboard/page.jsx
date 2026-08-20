@@ -4,9 +4,13 @@ import { Header } from '@/components/header.jsx'
 import { requireUser } from '@/lib/auth.js'
 import { refreshStaleReelsForUser } from '@/lib/import-reel.js'
 import { getRepository } from '@/lib/repository.js'
+import { getMessages } from '@/lib/i18n.js'
+import { getLocale } from '@/lib/locale.js'
 
 export default async function DashboardPage() {
   const user = await requireUser()
+  const locale = await getLocale()
+  const copy = getMessages(locale)
   const repository = getRepository()
   const dashboard = await repository.getDashboard(user.id)
 
@@ -17,8 +21,8 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <Header user={user} />
-      <Dashboard user={user} initialDashboard={dashboard} />
+      <Header user={user} locale={locale} copy={copy} />
+      <Dashboard user={user} initialDashboard={dashboard} locale={locale} copy={copy} />
     </>
   )
 }

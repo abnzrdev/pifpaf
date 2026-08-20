@@ -2,6 +2,8 @@
 
 PifPaf is a small, production-shaped Next.js app for saving public Instagram Reel links and tracking their latest public metrics in one creator dashboard.
 
+The interface is Russian-first with a persistent RU / EN switch. Cormorant Garamond is self-hosted by Next.js for editorial display headings; controls, metrics, and body copy keep the system sans-serif stack.
+
 ## Run locally
 
 Requires Node.js 20.12+ and Docker.

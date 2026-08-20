@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { signOut } from 'next-auth/react'
 
-export function AccountMenu({ user }) {
+export function AccountMenu({ user, signOutLabel }) {
   return (
     <details className="group relative">
       <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-full p-1 pr-3 font-semibold marker:content-none">
@@ -16,7 +16,7 @@ export function AccountMenu({ user }) {
           <p className="font-bold">{user.name}</p>
           <p className="truncate text-sm text-[var(--muted)]">{user.email}</p>
         </div>
-        <button className="mt-2 min-h-11 w-full rounded-lg px-3 text-left font-semibold hover:bg-[#f3f5fb]" onClick={() => signOut({ callbackUrl: '/' })}>Sign out</button>
+        <button className="mt-2 min-h-11 w-full rounded-lg px-3 text-left font-semibold hover:bg-[#f3f5fb]" onClick={() => signOut({ callbackUrl: '/' })}>{signOutLabel}</button>
       </div>
     </details>
   )

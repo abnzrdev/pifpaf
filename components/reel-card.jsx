@@ -4,7 +4,7 @@ import { formatDate, formatDuration, formatMetric } from '@/lib/format.js'
 
 import { RefreshButton } from './refresh-button.jsx'
 
-export function ReelCard({ reel, onRefresh }) {
+export function ReelCard({ reel, onRefresh, locale, copy }) {
   const localCover = reel.coverUrl?.startsWith('/images/')
   return (
     <article className="card min-w-0 overflow-hidden">
@@ -22,15 +22,14 @@ export function ReelCard({ reel, onRefresh }) {
         <span className="absolute right-3 top-3 rounded-full bg-[#0b1239cc] px-2 py-1 text-xs text-white">{formatDuration(reel.durationSeconds)}</span>
       </div>
       <div className="p-3.5">
-        <h3 className="line-clamp-2 min-h-10 font-bold leading-5">{reel.caption || 'Untitled Reel'}</h3>
-        <dl className="mt-3 grid grid-cols-2 gap-2 text-xs text-[var(--muted)]">
-          <div><dt className="sr-only">Views</dt><dd>◉ {formatMetric(reel.views)}</dd></div>
-          <div><dt className="sr-only">Likes</dt><dd>♡ {formatMetric(reel.likes)}</dd></div>
-          <div><dt className="sr-only">Comments</dt><dd>◌ {formatMetric(reel.comments)}</dd></div>
-          <div><dt className="sr-only">Shares</dt><dd>↗ {formatMetric(reel.shares)}</dd></div>
+        <h3 className="line-clamp-2 min-h-10 font-bold leading-5">{reel.caption || copy.reel.untitled}</h3>
+        <dl className="mt-4 grid grid-cols-3 gap-2 border-t border-[var(--line)] pt-3">
+          <div><dt className="text-[0.68rem] text-[var(--muted)]">{copy.reel.views}</dt><dd className="mt-1 font-bold">{formatMetric(reel.views)}</dd></div>
+          <div><dt className="text-[0.68rem] text-[var(--muted)]">{copy.reel.likes}</dt><dd className="mt-1 font-bold">{formatMetric(reel.likes)}</dd></div>
+          <div><dt className="text-[0.68rem] text-[var(--muted)]">{copy.reel.comments}</dt><dd className="mt-1 font-bold">{formatMetric(reel.comments)}</dd></div>
         </dl>
-        <p className="mt-3 border-t border-[var(--line)] pt-3 text-xs text-[var(--muted)]">{formatDate(reel.publishedAt)}</p>
-        <RefreshButton reelId={reel.id} onSuccess={onRefresh} />
+        <p className="mt-3 text-xs text-[var(--muted)]"><span className="font-semibold">{copy.reel.date}:</span> {formatDate(reel.publishedAt, locale)}</p>
+        <RefreshButton reelId={reel.id} onSuccess={onRefresh} locale={locale} copy={copy} />
       </div>
     </article>
   )

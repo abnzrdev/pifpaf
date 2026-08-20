@@ -4,7 +4,7 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-export function LoginForm() {
+export function LoginForm({ copy }) {
   const router = useRouter()
   const [pending, setPending] = useState(false)
   const [error, setError] = useState('')
@@ -20,7 +20,7 @@ export function LoginForm() {
       redirect: false,
     })
     if (!result?.ok) {
-      setError('Email or password is incorrect.')
+      setError(copy.error)
       setPending(false)
       return
     }
@@ -31,18 +31,18 @@ export function LoginForm() {
   return (
     <form className="mt-8 space-y-5" onSubmit={submit}>
       <label className="block font-semibold">
-        Email
+        {copy.email}
         <input className="mt-2 min-h-12 w-full rounded-xl border border-[var(--line)] bg-white px-4 font-normal" name="email" type="email" autoComplete="email" defaultValue="demo@pifpaf.ai" required />
       </label>
       <label className="block font-semibold">
-        Password
+        {copy.password}
         <input className="mt-2 min-h-12 w-full rounded-xl border border-[var(--line)] bg-white px-4 font-normal" name="password" type="password" autoComplete="current-password" defaultValue="PifPafDemo!2026" minLength={8} required />
       </label>
       <p className="min-h-6 text-sm font-semibold text-[var(--danger)]" role="alert" aria-live="polite">{error}</p>
-      <button className="button w-full" disabled={pending}>{pending ? 'Signing in…' : 'Sign in'}</button>
+      <button className="button w-full" disabled={pending}>{pending ? copy.pending : copy.submit}</button>
       <div className="rounded-xl bg-[#f3f5fb] p-4 text-sm text-[var(--muted)]">
-        <strong className="text-[var(--navy)]">Demo:</strong> demo@pifpaf.ai / PifPafDemo!2026
-        <br />Empty state: empty@pifpaf.ai / PifPafDemo!2026
+        <strong className="text-[var(--navy)]">{copy.demo}:</strong> demo@pifpaf.ai / PifPafDemo!2026
+        <br />{copy.empty}: empty@pifpaf.ai / PifPafDemo!2026
       </div>
     </form>
   )

@@ -57,6 +57,11 @@ a {
   box-shadow: 0 20px 70px rgb(32 47 89 / 12%);
 }
 
+.editorial {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-weight: 600;
+}
+
 .card {
   border: 1px solid var(--line);
   border-radius: 1rem;
