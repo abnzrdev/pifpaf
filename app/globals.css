@@ -104,6 +104,19 @@ a {
   border: 0;
 }
 
+.reel-dialog::backdrop {
+  background: rgb(11 18 57 / 55%);
+  backdrop-filter: blur(4px);
+}
+
+.spinner {
+  animation: spin 1.4s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

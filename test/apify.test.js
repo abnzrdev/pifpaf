@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { normalizeActorItem } from '../lib/apify.js'
+import { normalizeActorItem, ReelFetchError } from '../lib/apify.js'
 
 const canonicalUrl = 'https://www.instagram.com/reel/C9Ab_12/'
 
@@ -64,4 +64,16 @@ test('rejects actor results without the requested shortcode', () => {
     () => normalizeActorItem({ shortCode: 'Different' }, canonicalUrl),
     (error) => error.code === 'empty' && /private or deleted/i.test(error.message),
   )
+})
+
+test('uses friendly messages for every provider failure class', () => {
+  const messages = {
+    empty: 'We could not find public data for this Reel. It may be private or deleted.',
+    failed: 'Instagram data could not be fetched right now. Please try again.',
+    rate_limit: 'The data service is busy. Please wait a moment and try again.',
+    timeout: 'Fetching this Reel took too long. Please try again.',
+  }
+  for (const [code, message] of Object.entries(messages)) {
+    assert.equal(new ReelFetchError(code).message, message)
+  }
 })

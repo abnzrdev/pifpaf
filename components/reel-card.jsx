@@ -2,7 +2,9 @@ import Image from 'next/image'
 
 import { formatDate, formatDuration, formatMetric } from '@/lib/format.js'
 
-export function ReelCard({ reel }) {
+import { RefreshButton } from './refresh-button.jsx'
+
+export function ReelCard({ reel, onRefresh }) {
   const localCover = reel.coverUrl?.startsWith('/images/')
   return (
     <article className="card min-w-0 overflow-hidden">
@@ -28,6 +30,7 @@ export function ReelCard({ reel }) {
           <div><dt className="sr-only">Shares</dt><dd>↗ {formatMetric(reel.shares)}</dd></div>
         </dl>
         <p className="mt-3 border-t border-[var(--line)] pt-3 text-xs text-[var(--muted)]">{formatDate(reel.publishedAt)}</p>
+        <RefreshButton reelId={reel.id} onSuccess={onRefresh} />
       </div>
     </article>
   )
