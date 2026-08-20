@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: pifpaf
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - pifpaf-postgres:/var/lib/postgresql
+      - ./docker/create-test-db.sql:/docker-entrypoint-initdb.d/000_create_test_db.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d pifpaf']
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  pifpaf-postgres:

@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "test": "node --test",
     "db:migrate": "node scripts/migrate.js",
+    "db:migrate:test": "node scripts/migrate.js --test",
     "db:seed": "node scripts/seed.js"
   },
   "dependencies": {
