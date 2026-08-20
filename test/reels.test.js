@@ -14,13 +14,16 @@ test('canonicalizes supported Instagram Reel URLs', () => {
     normalizeReelUrl('https://instagram.com/reels/C9Ab_12/'),
     'https://www.instagram.com/reel/C9Ab_12/',
   )
+  assert.equal(
+    normalizeReelUrl('https://www.instagram.com/p/DZIOdupbuA/'),
+    'https://www.instagram.com/reel/DZIOdupbuA/',
+  )
 })
 
 test('rejects URLs that are not public HTTPS Instagram Reels', () => {
   for (const value of [
     'http://instagram.com/reel/C9Ab_12/',
     'https://example.com/reel/C9Ab_12/',
-    'https://www.instagram.com/p/C9Ab_12/',
     'https://www.instagram.com/reel/',
     'not a url',
   ]) {

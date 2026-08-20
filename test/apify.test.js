@@ -62,13 +62,13 @@ test('drops unsafe cover image schemes at the provider boundary', () => {
 test('rejects actor results without the requested shortcode', () => {
   assert.throws(
     () => normalizeActorItem({ shortCode: 'Different' }, canonicalUrl),
-    (error) => error.code === 'empty' && /private or deleted/i.test(error.message),
+    (error) => error.code === 'empty' && error.message === 'This Instagram post is not a public Reel.',
   )
 })
 
 test('uses friendly messages for every provider failure class', () => {
   const messages = {
-    empty: 'We could not find public data for this Reel. It may be private or deleted.',
+    empty: 'This Instagram post is not a public Reel.',
     failed: 'Instagram data could not be fetched right now. Please try again.',
     rate_limit: 'The data service is busy. Please wait a moment and try again.',
     timeout: 'Fetching this Reel took too long. Please try again.',
