@@ -151,7 +151,7 @@ after its named command or manual evidence exists.
 - `APIFY_TOKEN`
 - `APIFY_ACTOR_ID`
 - `APIFY_MOCK`
-- `NEXT_PUBLIC_APP_URL`
+- `NEXTAUTH_URL`
 
 No secrets are committed. The seed creates the documented demo account from
 fixed non-production credentials and hashes its password at seed time.

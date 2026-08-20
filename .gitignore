@@ -1,1 +1,7 @@
 .worktrees/
+.next/
+node_modules/
+.env
+.env.local
+coverage/
+npm-debug.log*
