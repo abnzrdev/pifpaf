@@ -40,9 +40,12 @@ export function LoginForm({ copy }) {
       </label>
       <p className="min-h-6 text-sm font-semibold text-[var(--danger)]" role="alert" aria-live="polite">{error}</p>
       <button className="button w-full" disabled={pending}>{pending ? copy.pending : copy.submit}</button>
-      <div className="rounded-xl bg-[#f3f5fb] p-4 text-sm text-[var(--muted)]">
-        <strong className="text-[var(--navy)]">{copy.demo}:</strong> demo@pifpaf.ai / PifPafDemo!2026
-        <br />{copy.empty}: empty@pifpaf.ai / PifPafDemo!2026
+      <div className="rounded-2xl border border-[#cdd8ff] bg-[#eef2ff] p-4 text-sm shadow-[0_10px_30px_rgb(51_93_255/10%)]">
+        <p className="mb-3 font-black text-[var(--navy)]">✦ {copy.accounts}</p>
+        <div className="space-y-2">
+          <p className="rounded-xl bg-white/80 px-3 py-2"><strong className="text-[var(--blue)]">{copy.demo}</strong><br /><span className="font-semibold text-[var(--navy)]">demo@pifpaf.ai</span> <span className="text-[var(--muted)]">/ PifPafDemo!2026</span></p>
+          <p className="rounded-xl bg-white/80 px-3 py-2"><strong className="text-[var(--blue)]">{copy.empty}</strong><br /><span className="font-semibold text-[var(--navy)]">empty@pifpaf.ai</span> <span className="text-[var(--muted)]">/ PifPafDemo!2026</span></p>
+        </div>
       </div>
     </form>
   )

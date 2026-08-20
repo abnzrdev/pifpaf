@@ -39,7 +39,7 @@ export function Dashboard({ user, initialDashboard, locale, copy }) {
       <section className="grid gap-4 sm:grid-cols-3" aria-label={copy.dashboard.totals}>
         <StatCard icon="▣" label={copy.dashboard.totalReels} value={stats.reelCount} />
         <StatCard icon="◉" label={copy.dashboard.totalViews} value={stats.totalViews} />
-        <StatCard icon="☆" label={copy.dashboard.bestReel} value={stats.bestReelViews ?? '—'} />
+        <StatCard className="border-[#f0d8e5] bg-[#fffafd]" iconClassName="bg-[#fbe6f1] text-[#c44f89]" icon="☆" label={copy.dashboard.bestReel} value={stats.bestReelViews ?? '—'} />
       </section>
 
       {reels.length === 0 ? (

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { getMessages, normalizeLocale, translateError } from '../lib/i18n.js'
+import { getMessages, LOCALE_COOKIE, normalizeLocale, translateError } from '../lib/i18n.js'
 
 test('defaults the interface to Russian and keeps English selectable', () => {
   assert.equal(normalizeLocale(undefined), 'ru')
@@ -9,6 +9,8 @@ test('defaults the interface to Russian and keeps English selectable', () => {
   assert.equal(normalizeLocale('en'), 'en')
   assert.equal(getMessages('ru').dashboard.title, 'Пространство автора')
   assert.equal(getMessages('en').dashboard.title, 'Your Creator Space')
+  assert.equal(LOCALE_COOKIE, 'pifpaf-locale-v2')
+  assert.equal(getMessages('ru').login.accounts, 'Тестовые аккаунты')
 })
 
 test('translates known server errors without hiding unknown failures', () => {
