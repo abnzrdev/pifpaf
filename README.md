@@ -48,3 +48,14 @@ npm start
 ```
 
 The app uses credentials authentication, PostgreSQL user-scoped Reel storage, and server actions for import and refresh. Dashboard visits refresh at most one Reel older than six hours after the response; each card also has a manual refresh action. Mock mode is explicit and never activates as a silent fallback for a failed live provider call.
+
+## Create a user
+
+Create credentials without putting the password in shell history:
+
+```bash
+read -rsp "Password: " PIFPAF_NEW_USER_PASSWORD && echo
+export PIFPAF_NEW_USER_PASSWORD
+npm run user:create -- creator@example.com
+unset PIFPAF_NEW_USER_PASSWORD
+```

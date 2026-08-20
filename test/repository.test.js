@@ -17,6 +17,7 @@ let pool
 let repository
 let firstUser
 let secondUser
+let createdUser
 
 before(async () => {
   if (!canRun) return
@@ -35,7 +36,7 @@ before(async () => {
 
 after(async () => {
   if (!pool) return
-  await pool.query('DELETE FROM users WHERE id = ANY($1::uuid[])', [[firstUser, secondUser]])
+  await pool.query('DELETE FROM users WHERE id = ANY($1::uuid[])', [[firstUser, secondUser, createdUser].filter(Boolean)])
   await pool.end()
 })
 
@@ -56,6 +57,17 @@ integration('updates a duplicate shortcode instead of inserting another row', as
   const dashboard = await repository.getDashboard(firstUser)
   assert.equal(dashboard.reels.filter((item) => item.shortcode === 'DUPLICATE').length, 1)
   assert.equal(dashboard.reels.find((item) => item.shortcode === 'DUPLICATE').views, 45)
+})
+
+integration('creates a normalized user and rejects a duplicate email', async () => {
+  assert.equal(typeof repository.createUser, 'function')
+  const email = `Creator-${Date.now()}@Example.test`
+
+  const user = await repository.createUser(email, 'scrypt$test')
+  createdUser = user.id
+
+  assert.equal(user.email, email.toLowerCase())
+  await assert.rejects(repository.createUser(email.toLowerCase(), 'scrypt$other'), { code: '23505' })
 })
 
 function reel(shortcode, views) {
