@@ -146,6 +146,7 @@ after its named command or manual evidence exists.
 `.env.example` documents:
 
 - `DATABASE_URL`
+- `TEST_DATABASE_URL`
 - `AUTH_SECRET`
 - `APIFY_TOKEN`
 - `APIFY_ACTOR_ID`
