@@ -19,16 +19,16 @@ Only check an item after recording its evidence here.
 
 ## Quality gates
 
-- [ ] Domain tests — `npm test`
-- [ ] Lint — `npm run lint`
-- [ ] Production build — `npm run build`
-- [ ] Migration — `npm run db:migrate`
-- [ ] Idempotent seed — `npm run db:seed && npm run db:seed`
-- [ ] No browser console errors — evidence: browser console capture
-- [ ] No server errors — evidence: dev server log
+- [x] Domain tests — evidence: `npm test`, 19 passed / 0 failed on 2026-08-20
+- [x] Lint — evidence: `npm run lint`, exit 0 on 2026-08-20
+- [x] Production build — evidence: `npm run build`, all routes compiled on 2026-08-20
+- [x] Migration — evidence: application and test migrations both exited 0 on 2026-08-20
+- [x] Idempotent seed — evidence: two consecutive `npm run db:seed` runs exited 0
+- [x] No browser console errors — evidence: full-flow capture reported `errors: []`
+- [x] No server errors — evidence: full browser flow completed against the development server
 - [x] Keyboard/focus/Escape/reduced-motion — evidence: focus restored=true, pending Escape locked=true; CSS media rule inspected
-- [ ] 390px, 768px, 1440px responsive pass — evidence: screenshots
-- [ ] Full landing → sign-out flow — evidence: dated manual run notes
+- [x] 390px, 768px, 1440px responsive pass — evidence: screenshots inspected on 2026-08-20
+- [x] Full landing → sign-out flow — evidence: clean empty account → two imports → account menu → `/`, rerun 2026-08-20
 
 ## Done
 
@@ -39,11 +39,8 @@ Only check an item after recording its evidence here.
 - 2026-08-20: Full empty → two imports → account menu → sign-out browser flow passed with zero console/runtime errors.
 - 2026-08-20: Modal Escape closes while idle, restores trigger focus, and stays locked while pending.
 - 2026-08-20: Real login form verified wrong-password error and successful demo redirect with zero browser errors.
-
-## Next
-
-- Install dependencies and verify the scaffold.
-- Implement URL, provider, and password domain logic test-first.
+- 2026-08-20: Added quota-safe post-response refresh for one Reel older than six hours per dashboard visit.
+- 2026-08-20: Final SQL state verified: demo 6 Reels / 184,200 views; empty account 0 / 0.
 
 ## Blocked
 

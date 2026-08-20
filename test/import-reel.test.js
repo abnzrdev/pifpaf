@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { importReelForUser, refreshReelForUser } from '../lib/import-reel.js'
+import { importReelForUser, refreshReelForUser, refreshStaleReelsForUser } from '../lib/import-reel.js'
 import { ReelFetchError } from '../lib/apify.js'
 
 const reel = {
@@ -70,4 +70,29 @@ test('refresh refuses a Reel owned by another user', async () => {
 
   assert.equal(providerCalls, 0)
   assert.deepEqual(result, { ok: false, error: 'That Reel is no longer available.' })
+})
+
+test('background refresh updates at most one stale Reel for the authenticated user', async () => {
+  const calls = []
+  const repository = {
+    getStaleReels: async (userId, cutoff) => {
+      calls.push(['stale', userId, cutoff])
+      return [{ url: reel.url }, { url: 'https://www.instagram.com/reel/LATER123/' }]
+    },
+    upsertReel: async (userId, value) => { calls.push(['upsert', userId, value.shortcode]) },
+  }
+
+  const result = await refreshStaleReelsForUser({
+    userId: 'user-1',
+    cutoff: '2026-08-20T00:00:00.000Z',
+    fetcher: async (url) => { calls.push(['fetch', url]); return reel },
+    repository,
+  })
+
+  assert.deepEqual(result, { refreshed: 1 })
+  assert.deepEqual(calls, [
+    ['stale', 'user-1', '2026-08-20T00:00:00.000Z'],
+    ['fetch', reel.url],
+    ['upsert', 'user-1', 'GOOD123'],
+  ])
 })
