@@ -51,6 +51,14 @@ test('does not invent unavailable or hidden metrics', () => {
   assert.equal(reel.shares, null)
 })
 
+test('drops unsafe cover image schemes at the provider boundary', () => {
+  const reel = normalizeActorItem(
+    { shortCode: 'C9Ab_12', displayUrl: 'javascript:alert(1)' },
+    canonicalUrl,
+  )
+  assert.equal(reel.coverUrl, null)
+})
+
 test('rejects actor results without the requested shortcode', () => {
   assert.throws(
     () => normalizeActorItem({ shortCode: 'Different' }, canonicalUrl),

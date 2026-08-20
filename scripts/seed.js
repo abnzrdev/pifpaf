@@ -39,6 +39,10 @@ try {
       shares,
       rawJson: { seeded: true, shortCode: shortcode },
     })
+    await pool.query(
+      'UPDATE reels SET created_at = $1 WHERE user_id = $2 AND shortcode = $3',
+      [`${date}T12:00:00.000Z`, demoUser.id, shortcode],
+    )
   }
   console.log('Seeded demo@pifpaf.ai and empty@pifpaf.ai')
 } finally {
