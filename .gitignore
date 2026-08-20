@@ -5,3 +5,9 @@ node_modules/
 .env.local
 coverage/
 npm-debug.log*
+.codegraph/
+.cursor/
+.neon
+.vercel/
+.env*
+!.env.example
